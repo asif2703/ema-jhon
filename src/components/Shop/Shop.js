@@ -5,6 +5,7 @@ import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
 import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Shop = () => {
     const first10 = fakeData.slice(0, 10);
@@ -12,18 +13,18 @@ const Shop = () => {
     const [cart, setCart] = useState([]);
 
 
-    useEffect(()=>{
+    useEffect(() => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
-        const previousCart = productKeys.map(existingKey =>{
-            const product =fakeData.find(pd => pd.key === existingKey);
+        const previousCart = productKeys.map(existingKey => {
+            const product = fakeData.find(pd => pd.key === existingKey);
             product.quantity = savedCart[existingKey];
             return product;
-           
+
 
         })
-       setCart(previousCart);
-    },[])
+        setCart(previousCart);
+    }, [])
 
     const handleAddProduct = (product) => {
         const toBeAddedKey = products.key
@@ -64,7 +65,11 @@ const Shop = () => {
 
             </div>
             <div className="cart-container">
-                <Cart cart={cart}></Cart>
+                <Cart cart={cart}>
+                    <Link to='/review'>
+                        <button className='cart-btn'>Review Order</button>
+                    </Link>
+                </Cart>
 
 
             </div>
