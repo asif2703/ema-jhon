@@ -1,15 +1,19 @@
-import React from 'react';
-import logo from    '../../images/logo.png';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { UserContext } from '../../App';
+import logo from '../../images/logo.png';
 import './Header.css';
 
 const Header = () => {
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     return (
         <div className="Header">
-            <img src={logo} alt=""/>
+            <img src={logo} alt="" />
             <nav>
-                <a href="/shop">shop</a>
-            <a href="/review">Order Review</a>
-            <a href="/inventory">Manage Order</a>
+                <Link to="/shop">shop</Link>
+                <Link to="/review">Order Review</Link>
+                <Link to="/inventory">Manage Order</Link>
+                <button onClick={() => setLoggedInUser({})}>Sign Out</button>
             </nav>
         </div>
     );
